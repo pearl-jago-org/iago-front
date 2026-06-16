@@ -7,5 +7,7 @@ jobs:
   dns:
     runs-on: self-hosted
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: test connection
         run: java -Djava.net.preferIPv4Stack=true TestConnection http://10.158.248.153:9000
