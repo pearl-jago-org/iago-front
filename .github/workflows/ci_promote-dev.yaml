@@ -29,12 +29,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST: http://127.0.0.1:9000
         run: |
           npx sonar-scanner \
             -Dsonar.projectKey=${{ github.event.repository.name }} \
             -Dsonar.sources=src \
-            -Dsonar.host.url=http://sonarqube-local:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.host.url="$SONAR_HOST" \
+            -Dsonar.login="$SONAR_TOKEN"
 
   security_and_image:
     runs-on: ubuntu-latest
