@@ -7,7 +7,7 @@ on:
 
 jobs:
   sonar:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -25,18 +25,12 @@ jobs:
       - name: Run Angular tests
         run: npm test -- --watch=false --browsers=ChromeHeadless || true
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
 
       - name: SonarQube Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
-          SONAR_HOST: "http://10.158.248.153:9000"
+          SONAR_HOST: "http://sonarqube-local:9000"
         uses: SonarSource/sonarqube-scan-action@v2
         with:
           projectBaseDir: .
