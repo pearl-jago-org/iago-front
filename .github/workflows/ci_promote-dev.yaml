@@ -25,17 +25,23 @@ jobs:
       - name: Run Angular tests
         run: npm test -- --watch=false --browsers=ChromeHeadless || true
 
-      - name: SonarQube Analysis (JS/TS)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
-          SONAR_HOST_URL: "http://172.17.0.1:9000"
+      - name: Install sonar-scanner
         run: |
-          npx @sonar/scan -X \
-            -Dsonar.projectKey=${{ github.event.repository.name }} \
-            -Dsonar.sources=src
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-5.0.1.3006-linux.zip
+          unzip sonar-scanner-5.0.1.3006-linux.zip
+          mv sonar-scanner-5.0.1.3006-linux sonar-scanner
 
+      - name: Run SonarQube analysis
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
+        
+        run: |
+          ./sonar-scanner/bin/sonar-scanner \
+            -Dsonar.projectKey=${{ github.event.repository.name }} \
+            -Dsonar.sources=src \
+            -Dsonar.host.url=http://sonarqube-local:9000 \
+            -Dsonar.login="$SONAR_TOKEN"
 
   security_and_image:
     runs-on: ubuntu-latest
