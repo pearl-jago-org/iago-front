@@ -16,7 +16,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: test connection
-        run: |
-          javac TestConnection.java   
-          java -Djava.net.preferIPv4Stack=true TestConnection http://10.158.248.153:9000
+      - name: SonarQube Scan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
+          SONAR_HOST: "http://10.158.248.153:9000"
+        uses: SonarSource/sonarqube-scan-action@v2
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=${{ github.event.repository.name }}
+            -Dsonar.sources=src
+            -Dsonar.host.url=${{ env.SONAR_HOST }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+
