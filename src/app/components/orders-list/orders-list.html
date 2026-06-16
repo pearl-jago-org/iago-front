@@ -1,0 +1,7 @@
+<h2>Orders</h2>
+
+<ul>
+  <li *ngFor="let order of orders">
+    {{ order.id }} - {{ order.product }} (x{{ order.quantity }}) → User {{ order.userId }}
+  </li>
+</ul>
