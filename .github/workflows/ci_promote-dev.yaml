@@ -32,7 +32,7 @@ jobs:
           SONAR_HOST: http://127.0.0.1:9000
           NODE_OPTIONS: "--dns-result-order=ipv4first"
         run: |
-          npx sonar-scanner \
+          npx sonar-scanner -X \
             -Dsonar.projectKey=${{ github.event.repository.name }} \
             -Dsonar.sources=src \
             -Dsonar.host.url="$SONAR_HOST" \
