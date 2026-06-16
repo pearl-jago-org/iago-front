@@ -25,6 +25,13 @@ jobs:
       - name: Run Angular tests
         run: npm test -- --watch=false --browsers=ChromeHeadless || true
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+
       - name: SonarQube Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
