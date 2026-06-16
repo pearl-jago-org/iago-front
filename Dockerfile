@@ -1,5 +1,5 @@
 # ---------- BUILD ----------
-FROM node:20-slim AS build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -11,7 +11,10 @@ COPY . .
 RUN npm run build -- --configuration production
 
 # ---------- RUNTIME ----------
-FROM nginx:1.27-bookworm
+FROM nginx:stable-alpine
+
+# Actualizamos Alpine para parchear libcrypto3, libssl3 y libxml2
+RUN apk update && apk upgrade
 
 RUN rm -rf /usr/share/nginx/html/*
 
@@ -22,5 +25,4 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
-
 
