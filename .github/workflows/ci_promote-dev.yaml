@@ -30,7 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: http://127.0.0.1:9000
-          NODE_OPTIONS: "--dns-result-order=ipv4first"
+          SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
         run: |
           npx sonar-scanner -X \
             -Dsonar.projectKey=${{ github.event.repository.name }} \
