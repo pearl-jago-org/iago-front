@@ -7,20 +7,5 @@ jobs:
   dns:
     runs-on: self-hosted
     steps:
-      - name: Mostrar /etc/hosts
-        run: cat /etc/hosts
-
-      - name: Mostrar /etc/resolv.conf
-        run: cat /etc/resolv.conf
-
-      - name: nslookup sonarqube-local
-        run: nslookup sonarqube-local || true
-
-      - name: dig sonarqube-local
-        run: dig sonarqube-local || true
-
-      - name: curl a sonarqube-local
-        run: curl -v http://sonarqube-local:9000 || true
-
-      - name: curl a localhost
-        run: curl -v http://127.0.0.1:9000 || true
+      - name: test connection
+        run: java -Djava.net.preferIPv4Stack=true TestConnection http://10.158.248.153:9000
