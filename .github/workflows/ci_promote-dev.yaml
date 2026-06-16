@@ -32,9 +32,10 @@ jobs:
           mv sonar-scanner-5.0.1.3006-linux sonar-scanner
 
       - name: Run SonarQube analysis
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
         
         run: |
           ./sonar-scanner/bin/sonar-scanner \
