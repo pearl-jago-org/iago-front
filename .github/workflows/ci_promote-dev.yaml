@@ -29,14 +29,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          # Forzamos IPv4 en la JVM
           SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
-          # Seteamos ambas variables (antigua y moderna) apuntando a la red puente de Docker
-          SONAR_HOST: "http://172.17.0.1:9000"
           SONAR_HOST_URL: "http://172.17.0.1:9000"
         run: |
-          # Usamos el paquete oficial de SonarSource en lugar del 'sonar-scanner' genérico
-          npx @sonarsource/sonar-scanner -X \
+          npx @sonar/scan -X \
             -Dsonar.projectKey=${{ github.event.repository.name }} \
             -Dsonar.sources=src
 
