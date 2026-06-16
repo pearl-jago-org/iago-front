@@ -9,5 +9,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
       - name: test connection
         run: java -Djava.net.preferIPv4Stack=true TestConnection http://10.158.248.153:9000
