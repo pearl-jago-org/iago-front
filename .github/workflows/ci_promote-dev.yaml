@@ -29,7 +29,7 @@ jobs:
       - name: SonarQube Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-          SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
+          SONAR_SCANNER_OPTS: "-Dsonar.scanner.workDirectory=/tmp/.scannerwork -Djava.net.preferIPv4Stack=true"
           SONAR_HOST: "http://10.158.248.153:9000"
         uses: SonarSource/sonarqube-scan-action@v2
         with:
@@ -38,7 +38,6 @@ jobs:
             -Dsonar.projectKey=${{ github.event.repository.name }}
             -Dsonar.sources=src
             -Dsonar.host.url=${{ env.SONAR_HOST }}
-            -Dsonar.scanner.workDirectory=/tmp/.scannerwork
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   security_and_image:
