@@ -1,14 +1,19 @@
-<h2>Create Order</h2>
+<h2>Crear Order</h2>
 
 <form (ngSubmit)="createOrder()">
-  <label>Product</label>
+
+  <label>Usuario</label>
+  <select [(ngModel)]="order.userId" name="userId" required>
+    <option *ngFor="let u of users" [value]="u.id">
+      {{ u.name }} ({{ u.email }})
+    </option>
+  </select>
+
+  <label>Producto</label>
   <input [(ngModel)]="order.product" name="product" required />
 
-  <label>Quantity</label>
-  <input type="number" [(ngModel)]="order.quantity" name="quantity" required />
+  <label>Importe</label>
+  <input type="number" [(ngModel)]="order.amount" name="amount" required />
 
-  <label>User ID</label>
-  <input type="number" [(ngModel)]="order.userId" name="userId" required />
-
-  <button type="submit">Create</button>
+  <button type="submit">Crear</button>
 </form>

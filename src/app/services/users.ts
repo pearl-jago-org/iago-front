@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface User {
-  id?: number;
+  id?: string;
   name: string;
   email: string;
 }
@@ -11,25 +11,19 @@ export interface User {
 @Injectable({
   providedIn: 'root'
 })
-export class Users {
-  private baseUrl = '/api/users';
+export class UsersService {
+
+  private apiUrl = 'http://api.dev.iago.local/users';
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl);
-  }
-
-  getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/${id}`);
+    return this.http.get<User[]>(this.apiUrl);
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.baseUrl, user);
-  }
-
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.post<User>(this.apiUrl, user);
   }
 }
+
 

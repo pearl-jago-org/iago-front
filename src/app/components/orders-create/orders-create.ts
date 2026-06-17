@@ -1,28 +1,41 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Orders, Order } from '../../services/orders';
+import { NgFor } from '@angular/common';
+import { OrdersService, Order } from '../../services/orders';
+import { UsersService, User } from '../../services/users';
 
 @Component({
   selector: 'app-orders-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, NgFor],
   templateUrl: './orders-create.html',
+  styleUrls: ['./orders-create.scss']
 })
-export class OrdersCreate {
+export class OrdersCreateComponent implements OnInit {
+
+  users: User[] = [];
 
   order: Order = {
+    userId: '',
     product: '',
-    quantity: 1,
-    userId: 0
+    amount: 0
   };
 
-  constructor(private ordersService: Orders) {}
+  constructor(
+    private ordersService: OrdersService,
+    private usersService: UsersService
+  ) {}
+
+  ngOnInit() {
+    this.usersService.getUsers().subscribe(res => {
+      this.users = res;
+    });
+  }
 
   createOrder() {
-    this.ordersService.createOrder(this.order).subscribe(() => {
-      alert('Order created');
-      this.order = { product: '', quantity: 1, userId: 0 };
+    this.ordersService.createOrder(this.order).subscribe(res => {
+      console.log('Order created:', res);
+      this.order = { userId: '', product: '', amount: 0 };
     });
   }
 }

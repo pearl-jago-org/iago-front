@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Orders, Order } from '../../services/orders';
+import { NgFor } from '@angular/common';
+import { OrdersService, Order } from '../../services/orders';
 
 @Component({
   selector: 'app-orders-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgFor],
   templateUrl: './orders-list.html',
+  styleUrls: ['./orders-list.scss']
 })
-export class OrdersList implements OnInit {
+export class OrdersListComponent implements OnInit {
 
   orders: Order[] = [];
 
-  constructor(private ordersService: Orders) {}
+  constructor(private ordersService: OrdersService) {}
 
   ngOnInit() {
-    this.ordersService.getOrders().subscribe(data => {
-      this.orders = data;
+    this.ordersService.getOrders().subscribe(res => {
+      this.orders = res;
     });
   }
 }

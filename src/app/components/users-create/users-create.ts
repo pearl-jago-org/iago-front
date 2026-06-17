@@ -1,26 +1,23 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Users, User } from '../../services/users';
+import { UsersService, User } from '../../services/users';
 
 @Component({
   selector: 'app-users-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './users-create.html',
+  styleUrls: ['./users-create.scss']
 })
-export class UsersCreate {
+export class UsersCreateComponent {
 
-  user: User = {
-    name: '',
-    email: ''
-  };
+  user: User = { name: '', email: '' };
 
-  constructor(private usersService: Users) {}
+  constructor(private usersService: UsersService) {}
 
   createUser() {
-    this.usersService.createUser(this.user).subscribe(() => {
-      alert('User created');
+    this.usersService.createUser(this.user).subscribe(res => {
+      console.log('User created:', res);
       this.user = { name: '', email: '' };
     });
   }
