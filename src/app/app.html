@@ -1,8 +1,14 @@
-<nav>
-  <a routerLink="/users">Usuarios</a>
-  <a routerLink="/users/create">Crear Usuario</a>
-  <a routerLink="/orders">Orders</a>
-  <a routerLink="/orders/create">Crear Order</a>
+<nav style="
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #f0f0f0;
+">
+  <a routerLink="/users" style="cursor: pointer; color: blue;">Usuarios</a>
+  <a routerLink="/users/create" style="cursor: pointer; color: blue;">Crear Usuario</a>
+  <a routerLink="/orders" style="cursor: pointer; color: blue;">Orders</a>
+  <a routerLink="/orders/create" style="cursor: pointer; color: blue;">Crear Order</a>
 </nav>
 
 <router-outlet></router-outlet>
