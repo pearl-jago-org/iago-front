@@ -38,6 +38,7 @@ jobs:
             -Dsonar.projectKey=${{ github.event.repository.name }}
             -Dsonar.sources=src
             -Dsonar.host.url=${{ env.SONAR_HOST }}
+            -Dsonar.scanner.workDirectory=/tmp/.scannerwork
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   security_and_image:
