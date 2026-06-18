@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           SONAR_SCANNER_OPTS: "-Djava.net.preferIPv4Stack=true"
-          SONAR_HOST: "http://10.158.248.153:9000"
+          SONAR_HOST: "http://127.0.0.1:9000"
         uses: SonarSource/sonarqube-scan-action@v2
         with:
           projectBaseDir: .
